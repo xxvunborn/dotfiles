@@ -60,7 +60,6 @@ alias v.='nvim .'
 
 ## TERMINAL COMMANDS
 alias cl='clear'
-alias ruvix="cd ~/ws/Github.com/ruvix/"
 
 ## C++ COMMANDS
 alias compile="clang++ -std=c++11 -o out"
