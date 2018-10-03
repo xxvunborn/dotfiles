@@ -1,3 +1,5 @@
+scriptencoding utf8
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -21,6 +23,7 @@ Plugin 'terryma/vim-smooth-scroll'
 
 " Color schemes:
 Plugin 'romainl/flattened'
+Plugin 'junegunn/seoul256.vim'
 
  "A tree explorer
 Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
@@ -41,6 +44,9 @@ Plugin 'Yggdroot/indentLine'
 
 " Lint engine
 Plugin 'w0rp/ale'
+
+" Icons
+Plugin 'ryanoasis/vim-devicons'
 
 " --------------------------------------------------
 " GO
@@ -88,7 +94,11 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR><Paste>
 " color scheme configuration
 " --------------------------------------------------
 syntax enable
-:color flattened_dark
+let g:seoul256_background = 235
+colo seoul256
+
+":color flattened_dark
+
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab shiftround
 set number relativenumber
 set noswapfile nobackup nowritebackup autowrite
@@ -117,7 +127,7 @@ let g:load_doxygen_syntax=1
 hi matchparen cterm=none ctermbg=3 ctermfg=0
 " strip white space for the following file types
 autocmd filetype c,cpp,ruby,javascript,java,php,python
-autocmd bufwritepre <buffer> stripwhitespace
+"autocmd bufwritepre <buffer> stripwhitespace
 " nerdtree no list chars
 autocmd filetype nerdtree setlocal nolist
 
@@ -201,6 +211,7 @@ let g:ale_fixers = {
 \}
 let g:ale_enabled = 1
 let g:ale_fix_on_save = 1
+let g:ale_echo_msg_error_str = 'E'
 
 " ==================================================
 " " Leader mappings & Key mappings
