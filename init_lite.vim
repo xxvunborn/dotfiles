@@ -48,6 +48,15 @@ Plugin 'w0rp/ale'
 " Icons
 Plugin 'ryanoasis/vim-devicons'
 
+" Wakatime 
+Plugin 'wakatime/vim-wakatime'
+
+" Fugitive
+Plugin 'tpope/vim-fugitive'
+
+" Gitgutter 
+Plugin 'airblade/vim-gitgutter'
+
 " --------------------------------------------------
 " GO
 " --------------------------------------------------
@@ -68,7 +77,7 @@ Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'  }
 Plugin 'ervandew/supertab'
 
 " Strip white spaces
-Plugin 'ntpeters/vim-better-whitespace'
+"Plugin 'ntpeters/vim-better-whitespace'
 
 " Easy Commenter
 Plugin 'scrooloose/nerdcommenter'
@@ -130,9 +139,6 @@ autocmd filetype c,cpp,ruby,javascript,java,php,python
 "autocmd bufwritepre <buffer> stripwhitespace
 " nerdtree no list chars
 autocmd filetype nerdtree setlocal nolist
-
-
-
 
 " --------------------------------------------------
 " Vim-airline configuration
@@ -204,14 +210,16 @@ nnoremap <C-p> :FZF<cr>
 " --------------------------------------------------
 " A.l.e Configuration
 " --------------------------------------------------
+"\   'ruby': ['rubocop'],
 let g:ale_fixers = {
 \   'javascript': ['eslint', 'prettier'],
-\   'ruby': ['rubocop'],
 \   'css': ['prettier'],
 \}
 let g:ale_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_error_str = 'E'
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠'
 
 " ==================================================
 " " Leader mappings & Key mappings
