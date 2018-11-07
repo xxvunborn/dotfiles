@@ -1,3 +1,8 @@
+""""""""""""""""""""""""
+"""""Chris I. Muñoz"""""
+""chris.mzpl@gmail.com""
+""""""""""""""""""""""""
+
 scriptencoding utf8
 
 set nocompatible              " be iMproved, required
