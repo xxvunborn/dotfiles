@@ -1,3 +1,6 @@
+export LC_ALL=en_US.utf-8
+export LANG="$LC_ALL"
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/Lalelilolu/.oh-my-zsh
 export POWERLINE=/Users/Lalelilolu/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
@@ -23,12 +26,12 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/Users/Lalelilolu/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # LENGUAGE PATH
- export LANG="en_US.UTF-8"
- export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # GOLANG PATH
 export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME/.ws/go/
+export GOPATH=$HOME/ws/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin 
 
 # RUBY VERSION MANAGER PATH
@@ -51,6 +54,22 @@ eval "$(pyenv init -)"
 export NVM_DIR="$HOME/.nvm"
   . "/usr/local/opt/nvm/nvm.sh"
 
+# FLUTTER PATH
+export PATH=/Users/Lalelilolu/ws/Github.com/flutter/bin:$PATH
+
+# Openssl PATH
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
+
+# Mysql@5.7
+export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
+export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
+
+export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
+export EDITOR=nvim
+
+
 # redefine prompt_context for hiding user@hostname
 prompt_context () { }
 
@@ -60,6 +79,8 @@ alias v.='nvim .'
 
 ## TERMINAL COMMANDS
 alias cl='clear'
+alias ruvix="cd ~/ws/Github.com/ruvix/"
+alias xxv="cd ~/ws/Github.com/xxvunborn/"
 
 ## C++ COMMANDS
 alias compile="clang++ -std=c++11 -o out"
@@ -74,7 +95,13 @@ alias tat='tmux a -t'
 
 # GIT COMMANDS
 alias gcd="git checkout development"
+alias gcdd="git checkout develop"
 alias gpod="git pull origin development"
+
+# DOCKER COMMANDS
+alias dconsole="docker-compose run app rails console"
+alias dcup="docker-compose up"
+alias dcdown="docker-compsoe down"
 
 #RAILS COMMANDS
 alias rs='rails s'
@@ -95,6 +122,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs virtualenv)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs rbenv)
 
 #COMMANDS
+# by papi vera
 ip () {
         ifconfig | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} inet | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} broadcast | awk '{print $2}'
 }
