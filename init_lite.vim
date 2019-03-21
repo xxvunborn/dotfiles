@@ -2,8 +2,8 @@
 """""Chris I. Muñoz"""""
 ""chris.mzpl@gmail.com""
 """"""""""""""""""""""""
-
 scriptencoding utf8
+set encoding=utf-8
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -29,6 +29,9 @@ Plugin 'terryma/vim-smooth-scroll'
 " Color schemes:
 Plugin 'romainl/flattened'
 Plugin 'junegunn/seoul256.vim'
+Plugin 'drewtempelmeyer/palenight.vim'
+Plugin 'arcticicestudio/nord-vim'
+Plugin 'morhetz/gruvbox'
 
  "A tree explorer
 Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
@@ -36,6 +39,7 @@ Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
 " better statusline
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes',
+ "Plugin 'itchyny/lightline.vim'
 
 " Files fuzzy finder
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
@@ -62,12 +66,21 @@ Plugin 'tpope/vim-fugitive'
 " Gitgutter 
 Plugin 'airblade/vim-gitgutter'
 
+" vim-markdown
+Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
 " --------------------------------------------------
 " GO
 " --------------------------------------------------
 " Vim go plugins
  Plugin 'fatih/vim-go'
 
+" --------------------------------------------------
+" TYPESCRIPT
+" --------------------------------------------------
+" Vim go plugins
+ Plugin 'leafgarland/typescript-vim'
+ Plugin 'Shougo/vimproc.vim'  "Then cd ~/.vim/bundle/vimproc.vim && make
 
 " --------------------------------------------------
 " Development tools and facilities
@@ -76,10 +89,24 @@ Plugin 'airblade/vim-gitgutter'
 " Complete pairs 
 Plugin 'jiangmiao/auto-pairs'
 " Complete lines
-Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'  }
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plugin 'zchee/deoplete-go', { 'do': 'make'}
+  Plugin 'fishbullet/deoplete-ruby'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+endif
 
 " Complete with Tab
 Plugin 'ervandew/supertab'
+
+" Vim ruby
+Plugin 'vim-ruby/vim-ruby'
+
+" Protobuf
+Plugin 'uarun/vim-protobuf'
 
 " Strip white spaces
 "Plugin 'ntpeters/vim-better-whitespace'
@@ -107,11 +134,24 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR><Paste>
 " --------------------------------------------------
 " color scheme configuration
 " --------------------------------------------------
-syntax enable
-let g:seoul256_background = 235
-colo seoul256
+if (has("termguicolors"))
+  set termguicolors
+endif
 
-":color flattened_dark
+syntax enable
+"let g:seoul256_background = 235
+"colo seoul256
+set background=dark
+"colorscheme palenight
+"color flattened_dark
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+"colorscheme nord
+"let g:nord_italic = 1
+"let g:nord_underline = 1
+"let g:nord_italic_comments = 1
+"let g:nord_uniform_status_lines = 1
+"let g:nord_cursor_line_number_background = 1
 
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab shiftround
 set number relativenumber
@@ -123,7 +163,7 @@ set nofoldenable
 
 highlight specialkey ctermfg=8
 set clipboard=unnamed
-set pastetoggle=<f2>
+"set pastetoggle=<f2>
 set completeopt=longest,menu
 set scrolloff=10 sidescrolloff=5
 set complete=.,w,b,u,t
@@ -140,7 +180,7 @@ let g:load_doxygen_syntax=1
 " make it more obvious which paren i'm on
 hi matchparen cterm=none ctermbg=3 ctermfg=0
 " strip white space for the following file types
-autocmd filetype c,cpp,ruby,javascript,java,php,python
+"autocmd filetype c,cpp,ruby,javascript,java,php,python LINE WITH ERROR<<<<<
 "autocmd bufwritepre <buffer> stripwhitespace
 " nerdtree no list chars
 autocmd filetype nerdtree setlocal nolist
@@ -150,7 +190,7 @@ autocmd filetype nerdtree setlocal nolist
 " --------------------------------------------------
 set background=dark " Set dark theme in solarized
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'solarized'
+let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 if !exists('g:airline_symbols')
@@ -159,9 +199,11 @@ if !exists('g:airline_symbols')
 
   " unicode symbols
   let g:airline_left_sep = '»'
-  let g:airline_left_sep = '▶'
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = ''
   let g:airline_right_sep = '«'
-  let g:airline_right_sep = '◀'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = ''
   let g:airline_symbols.crypt = '🔒'
   let g:airline_symbols.linenr = '␊'
   let g:airline_symbols.linenr = '␤'
@@ -182,19 +224,19 @@ if !exists('g:airline_symbols')
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 
-  " old vim-powerline symbols
-  let g:airline_left_sep = '⮀'
-  let g:airline_left_alt_sep = '⮁'
-  let g:airline_right_sep = '⮂'
-  let g:airline_right_alt_sep = '⮃'
-  let g:airline_symbols.branch = '⭠'
-  let g:airline_symbols.readonly = '⭤'
-  let g:airline_symbols.linenr = '⭡'
+  "old vim-powerline symbols
+  "let g:airline_left_sep = ''
+  "let g:airline_left_alt_sep = ''
+  "let g:airline_right_sep = ''
+  "let g:airline_right_alt_sep = '⮃'
+  "let g:airline_symbols.branch = '⭠'
+  "let g:airline_symbols.readonly = '⭤'
+  "let g:airline_symbols.linenr = '⭡'
 
 " --------------------------------------------------
 " Deoplete configuration
 " --------------------------------------------------
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 
 " --------------------------------------------------
 " FZF configuration
@@ -210,7 +252,6 @@ endfunction
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 nnoremap <C-p> :FZF<cr>
-
 
 " --------------------------------------------------
 " A.l.e Configuration
@@ -229,7 +270,7 @@ let g:ale_sign_warning = '⚠'
 " ==================================================
 " " Leader mappings & Key mappings
 " " ==================================================
-" Set Leadermap
+"Set Leadermap
 let mapleader = "\<Space>"
 " Open Neo Vim config
  nmap <leader>vi :tabe ~/.config/nvim/init.vim<cr>
@@ -244,8 +285,10 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-" Avoid Esc key
+" Avoid Esc key jj
 imap jj <Esc>
+" Avoid Esc key ll
+imap lll <Esc> <Right>
 " Add shortcut to end of line
 inoremap <C-e> <Esc>A
 inoremap <C-a> <Esc>I
