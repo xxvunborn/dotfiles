@@ -52,7 +52,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'Yggdroot/indentLine'
 
 " Lint engine
-Plugin 'w0rp/ale'
+"Plugin 'w0rp/ale'
 
 " Icons
 Plugin 'ryanoasis/vim-devicons'
@@ -68,6 +68,11 @@ Plugin 'airblade/vim-gitgutter'
 
 " vim-markdown
 Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+" echodoc declarative function
+Plugin 'Shougo/echodoc.vim'
+" Conquer of completion (coc vim)
+Plugin 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 " --------------------------------------------------
 " GO
@@ -123,6 +128,21 @@ filetype plugin indent on    " required
 "   configuration
 " ==================================================
 "
+" --------------------------------------------------
+" General configuration
+" --------------------------------------------------
+" if hidden is not set, TextEdit might fail.
+set hidden
+set cmdheight=2
+
+" Some server have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+
 " --------------------------------------------------
 " Vim-smooth-scroll basic configuration
 " --------------------------------------------------
@@ -237,7 +257,29 @@ if !exists('g:airline_symbols')
 " Deoplete configuration
 " --------------------------------------------------
 "let g:deoplete#enable_at_startup = 1
+" --------------------------------------------------
+" Deoplete configuration
+" --------------------------------------------------
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 " --------------------------------------------------
 " FZF configuration
 " --------------------------------------------------
@@ -259,6 +301,7 @@ nnoremap <C-p> :FZF<cr>
 "\   'ruby': ['rubocop'],
 let g:ale_fixers = {
 \   'javascript': ['eslint', 'prettier'],
+\   'typescript': ['tslint', 'prettier'],
 \   'css': ['prettier'],
 \}
 let g:ale_enabled = 1
