@@ -270,6 +270,8 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -277,9 +279,6 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
-
-" Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
 " --------------------------------------------------
 " FZF configuration
 " --------------------------------------------------
