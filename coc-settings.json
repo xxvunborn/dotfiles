@@ -1,0 +1,12 @@
+{
+  "suggest.echodocSupport": true,
+  "diagnostic.checkCurrentLine": true,
+  "suggest.noselect": false,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "filetypes": ["go"]
+    }
+  }
+}
