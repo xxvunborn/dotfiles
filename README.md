@@ -1,19 +1,5 @@
-#Dot files
-
-Coc ext: 
-if coc javascript complied fail, run `:call coc#util#build()` in vim
-
-:CocInstall
+# Install
 ```
-  coc-tsserver
-  coc-json
-  coc-go
+make install
 ```
 
-:CocConfig
-```
-  {
-    "suggest.echodocSupport": true,
-    "diagnostic.checkCurrentLine": true
-  }
-```
