@@ -2,8 +2,8 @@ export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/Lalelilolu/.oh-my-zsh
-export POWERLINE=/Users/Lalelilolu/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+export ZSH=/Users/acidlabs/.oh-my-zsh
+export POWERLINE=/Users/acidlabs/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -23,7 +23,8 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # MAIN PATH
-export PATH="/Users/Lalelilolu/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export HOME="/Users/acidlabs"
+export PATH="/Users/acidlabs/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # LENGUAGE PATH
 export LANG="en_US.UTF-8"
@@ -36,6 +37,7 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # RUBY VERSION MANAGER PATH
 export PATH="$HOME/.rbenv/shims:$PATH"
+eval "$(rbenv init -)"
 
 # POSTGRES PATH
 export PATH=$PATH:/Library/PostgreSQL/9.0/bin/ gem install pg
@@ -55,7 +57,7 @@ export NVM_DIR="$HOME/.nvm"
   . "/usr/local/opt/nvm/nvm.sh"
 
 # FLUTTER PATH
-export PATH=/Users/Lalelilolu/ws/Github.com/flutter/bin:$PATH
+export PATH=/Users/acidlabs/ws/Github.com/flutter/bin:$PATH
 
 # Openssl PATH
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
@@ -101,7 +103,8 @@ alias gpod="git pull origin development"
 # DOCKER COMMANDS
 alias dconsole="docker-compose run app rails console"
 alias dcup="docker-compose up"
-alias dcdown="docker-compsoe down"
+alias dcdown="docker-compose down"
+alias dcbuild="docker-compose build"
 
 #RAILS COMMANDS
 alias rs='rails s'
@@ -117,6 +120,11 @@ alias berr="bundle exec rake routes"
 
 #PSQL command
 alias psqls="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
+
+#KILL COMMANDS
+# function for kill any thing
+#alias kiall="function f() { kill -9 $(ps aux | grep '$1' | grep -v grep | awk '{print $2}') }; f"
+alias killnvim=" kill -9 $(ps aux | grep nvim | grep -v grep | awk '{print $2}')"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs virtualenv)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs rbenv)
