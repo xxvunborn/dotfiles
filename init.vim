@@ -1,178 +1,188 @@
-" =================================================
-"             Vim-Plug Configuration                
-" --------------------------------------------------
+""""""""""""""""""""""""
+"""""Chris I. Muñoz"""""
+""chris.mzpl@gmail.com""
+""""""""""""""""""""""""
 scriptencoding utf8
+set encoding=utf-8
 
-" Set up vim-plug if missing and install plugins
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !mkdir -p ~/.config/nvim/autoload
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  augroup plug_install
-    au!
-    au! VimEnter * PlugInstall
-  augroup END
-endif
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-if exists(':Neomake')
-" Check for lint errors on open & write
-  autocmd BufRead,BufWritePost,BufEnter *.js,*.jsx silent! Neomake standard|redraw
-endif
-
-call plug#begin('~/.config/nvim/plugged')
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
 " --------------------------------------------------
-" Syntax highlight and language specific
-" --------------------------------------------------
-" Markdown
-Plug 'tpope/vim-bundler', { 'for': 'ruby' }
-Plug 'tpope/vim-rake', { 'for': 'ruby' }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' } | Plug 'kana/vim-textobj-user'
-Plug 'janko-m/vim-test', { 'for': 'ruby' }
-" tmux navigator
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'christoomey/vim-tmux-runner'
-
-" API blueprint
-Plug 'kylef/apiblueprint.vim'
-
-" Console plugin
-Plug 'vim-scripts/Conque-Shell'
-
-
-" ==================================================
 " UI and utilities
-" ==================================================
-Plug 'tpope/vim-surround'
-
-" Vim script for text filtering and alignment
-Plug 'godlygeek/tabular'
-
-" Notice Git File changes
-Plug 'airblade/vim-gitgutter'
-
-" Dev icons
-Plug 'ryanoasis/vim-devicons'
-
-" Git wrapper
-Plug 'tpope/vim-fugitive'
+" --------------------------------------------------
+" Plugin for change things surround text
+Plugin 'tpope/vim-surround'
 
 " Better scrolling
-Plug 'terryma/vim-smooth-scroll'
+Plugin 'terryma/vim-smooth-scroll'
 
-" Better color schemes.
-Plug 'easysid/mod8.vim'
-Plug 'w0ng/vim-hybrid'
-Plug 'morhetz/gruvbox'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'mkarmona/colorsbox'
-Plug 'nightsense/seabird'
-" A tree explorer
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'romainl/flattened'
+" Color schemes:
+Plugin 'romainl/flattened'
+Plugin 'junegunn/seoul256.vim'
+Plugin 'drewtempelmeyer/palenight.vim'
+Plugin 'arcticicestudio/nord-vim'
+Plugin 'morhetz/gruvbox'
 
-" Better statusline
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes',
+ "A tree explorer
+Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
+
+" better statusline
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes',
+ "Plugin 'itchyny/lightline.vim'
 
 " Files fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-"Plug 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plugin 'junegunn/fzf.vim'
 
-
-" Multiple Cursors
-Plug 'terryma/vim-multiple-cursors'
+" multiple cursors like a sublime text
+Plugin 'terryma/vim-multiple-cursors'
 
 " Indentation mark for scope
-Plug 'Yggdroot/indentLine'
+Plugin 'Yggdroot/indentLine'
+
+" Icons
+Plugin 'ryanoasis/vim-devicons'
+
+" Wakatime 
+Plugin 'wakatime/vim-wakatime'
+
+" Fugitive
+Plugin 'tpope/vim-fugitive'
+
+ "Vim javascript
+"Plugin 'pangloss/vim-javascript'
+
+" Graphql
+Plugin 'jparise/vim-graphql'
+
+" Gitgutter 
+Plugin 'airblade/vim-gitgutter'
+
+" vim-markdown
+Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+" echodoc declarative function
+Plugin 'Shougo/echodoc.vim'
+" Conquer of completion (coc vim)
+Plugin 'neoclide/coc.nvim', {'do': 'yarn install' }
+
+Plugin 'prettier/vim-prettier', { 'do': 'yarn install' }
+let g:prettier#config#config_precedence = 'prefer-file'
+
+" --------------------------------------------------
+" GO
+" --------------------------------------------------
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
 " Vim go plugins
-Plug 'fatih/vim-go'
+"Plugin 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+"set autowrite
+ "Plugin 'sebdah/vim-delve'
+  "let g:delve_backend = "native"
 
-" ==================================================
+" --------------------------------------------------
+" TYPESCRIPT
+" --------------------------------------------------
+" Vim go plugins
+ Plugin 'leafgarland/typescript-vim'
+ Plugin 'Shougo/vimproc.vim'  "Then cd ~/.vim/bundle/vimproc.vim && make
+
+" --------------------------------------------------
 " Development tools and facilities
-" ==================================================
-" Enahanced search tool.
-Plug 'mileszs/ack.vim'
+" --------------------------------------------------
 
-" End helper
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-endwise'
+" Complete pairs 
+Plugin 'jiangmiao/auto-pairs'
+" Complete lines
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plugin 'zchee/deoplete-go', { 'do': 'make'}
+  Plugin 'fishbullet/deoplete-ruby'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+endif
 
-" YouCompleteMe
-Plug 'Valloric/YouCompleteMe', {
-      \ 'do': './install.py --clang-completer --gocode-completer --system-libclang'
-      \ }
-" YCM config generator
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+" Complete with Tab
+Plugin 'ervandew/supertab'
 
-" UltiSnips
-Plug 'SirVer/ultisnips'
+" Vim ruby
+Plugin 'vim-ruby/vim-ruby'
 
-" Snnipets collection
-Plug 'honza/vim-snippets'
-
-" Tab helper
-Plug 'ervandew/supertab'
+" Protobuf
+Plugin 'uarun/vim-protobuf'
 
 " Strip white spaces
-Plug 'ntpeters/vim-better-whitespace'
+"Plugin 'ntpeters/vim-better-whitespace'
 
-" Autoformat code
-Plug 'Chiel92/vim-autoformat'
+" Easy Commenter
+Plugin 'scrooloose/nerdcommenter'
+" JSDOC
+Plugin 'heavenshell/vim-jsdoc'
 
-" Linter
-Plug 'benekastah/neomake', { 'on': 'Neomake' }
-
-" Commenter
-Plug 'scrooloose/nerdcommenter'
-
-" Doxygen generator
-Plug 'mrtazz/DoxygenToolkit.vim'
-
-" Dash integration
-Plug 'rizzatti/dash.vim'
-
-" CMake integration
-Plug 'feed57005/vim-cmakeproj'
-
-" Tag bar
-Plug 'majutsushi/tagbar'
-call plug#end()
-
-filetype plugin indent on " required for Vim-Plug
-
-" Here
-" ==================================================
-"   Configuration
-" ==================================================
-"set guifont=Inconsolata\ for\ Powerline:h15
-"let g:Powerline_symbols = 'fancy'
-"set encoding=utf-8
-"set fillchars+=stl:\ ,stlnc:\
-"set term=xterm
-"set t_Co=256
-"set termencoding=utf-8
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " ==================================================
-"   Another Configuration
+"   configuration
 " ==================================================
+"
+" --------------------------------------------------
+" General configuration
+" --------------------------------------------------
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some server have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+
+" --------------------------------------------------
+" Vim-smooth-scroll basic configuration
+" --------------------------------------------------
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR><Paste>
+
+" --------------------------------------------------
+" color scheme configuration
+" --------------------------------------------------
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 syntax enable
-"set background=dark
-
- "Gruvbox related
-"let g:gruvbox_bold=1
-"let g:gruvbox_italic=1
-"let g:gruvbox_underline=1
-"let g:gruvbox_contrast_dark='light'
-"let g:gruvbox_invert_indent_guides=1
-colorscheme stormpetrel
+"let g:seoul256_background = 235
+"colo seoul256
+set background=dark
+"colorscheme palenight
+"color flattened_dark
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+"colorscheme nord
+"let g:nord_italic = 1
+"let g:nord_underline = 1
+"let g:nord_italic_comments = 1
+"let g:nord_uniform_status_lines = 1
+"let g:nord_cursor_line_number_background = 1
 
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab shiftround
 set number relativenumber
@@ -181,12 +191,10 @@ set showmatch showcmd
 set splitright
 set cursorline
 set nofoldenable
-" Mierdas que muestran el tab-teo
-set list listchars=tab:༏\ ,trail:•,extends:»,precedes:«,nbsp:¬
-" color de charlist=tab
-highlight SpecialKey ctermfg=8
+
+highlight specialkey ctermfg=8
 set clipboard=unnamed
-set pastetoggle=<F2>
+"set pastetoggle=<f2>
 set completeopt=longest,menu
 set scrolloff=10 sidescrolloff=5
 set complete=.,w,b,u,t
@@ -195,29 +203,25 @@ set gdefault incsearch smartcase
 " set rule on 100
 "set colorcolumn=100
  "custo set
-set guifont=<FONT_NAME>:h<FONT_SIZE>
-set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
-au BufRead,BufNewFile *.html.mustache set filetype=html
+set guifont=<font_name>:h<font_size>
+set guifont=droid\ sans\ mono\ for\ powerline\ plus\ nerd\ file\ types:h11
+au bufread,bufnewfile *.html.mustache set filetype=html
 " load doxygen syntax aumatically
 let g:load_doxygen_syntax=1
-" Make it more obvious which paren I'm on
-hi MatchParen cterm=none ctermbg=3 ctermfg=0
-" Strip white space for the following file types
-autocmd FileType c,cpp,ruby,javascript,java,php,python
-      \ autocmd BufWritePre <buffer> StripWhitespace
-" Nerdtree no list chars
-autocmd FileType nerdtree setlocal nolist
+" make it more obvious which paren i'm on
+hi matchparen cterm=none ctermbg=3 ctermfg=0
+" strip white space for the following file types
+"autocmd filetype c,cpp,ruby,javascript,java,php,python LINE WITH ERROR<<<<<
+"autocmd bufwritepre <buffer> stripwhitespace
+" nerdtree no list chars
+autocmd filetype nerdtree setlocal nolist
 
-if filereadable(expand("~/.config/nvim/ignore.vim"))
-  source ~/.config/nvim/ignore.vim
-endif
-
-" ==================================================
+" --------------------------------------------------
 " Vim-airline configuration
-" ==================================================
+" --------------------------------------------------
 set background=dark " Set dark theme in solarized
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'solarized'
+let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 if !exists('g:airline_symbols')
@@ -226,9 +230,11 @@ if !exists('g:airline_symbols')
 
   " unicode symbols
   let g:airline_left_sep = '»'
-  let g:airline_left_sep = '▶'
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = ''
   let g:airline_right_sep = '«'
-  let g:airline_right_sep = '◀'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = ''
   let g:airline_symbols.crypt = '🔒'
   let g:airline_symbols.linenr = '␊'
   let g:airline_symbols.linenr = '␤'
@@ -249,81 +255,96 @@ if !exists('g:airline_symbols')
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 
-  " old vim-powerline symbols
-  let g:airline_left_sep = '⮀'
-  let g:airline_left_alt_sep = '⮁'
-  let g:airline_right_sep = '⮂'
-  let g:airline_right_alt_sep = '⮃'
-  let g:airline_symbols.branch = '⭠'
-  let g:airline_symbols.readonly = '⭤'
-  let g:airline_symbols.linenr = '⭡'
+  "old vim-powerline symbols
+  "let g:airline_left_sep = ''
+  "let g:airline_left_alt_sep = ''
+  "let g:airline_right_sep = ''
+  "let g:airline_right_alt_sep = '⮃'
+  "let g:airline_symbols.branch = '⭠'
+  "let g:airline_symbols.readonly = '⭤'
+  "let g:airline_symbols.linenr = '⭡'
 
+" --------------------------------------------------
+" Deoplete configuration
+" --------------------------------------------------
+"let g:deoplete#enable_at_startup = 1
+" --------------------------------------------------
+" Deoplete configuration
+" --------------------------------------------------
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" --------------------------------------------------
+" FZF configuration
+" --------------------------------------------------
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+nnoremap <C-p> :FZF<cr>
+
+" --------------------------------------------------
+" A.l.e Configuration
+" --------------------------------------------------
+"\   'ruby': ['rubocop'],
+"let g:ale_fixers = {
+"\   'javascript': ['eslint', 'prettier'],
+"\   'typescript': ['tslint', 'prettier'],
+"\   'css': ['prettier'],
+"\}
+"let g:ale_enabled = 1
+"let g:ale_fix_on_save = 1
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_sign_error = '✖'
+"let g:ale_sign_warning = '⚠'
 
 " ==================================================
-" Leader mappings & Key mappings
-" ==================================================
+" " Leader mappings & Key mappings
+" " ==================================================
+"Set Leadermap
 let mapleader = "\<Space>"
 " Open Neo Vim config
-nmap <leader>vi :tabe ~/.config/nvim/init.vim<cr>
+ nmap <leader>vi :tabe ~/.config/nvim/init.vim<cr>
 " Source .nvimrc and install plugins
-noremap <leader>pi :w<cr> :source ~/.config/nvim/init.vim<cr>:PlugInstall<cr>
-" Source .nvimrc
-noremap <leader>so :w<cr> :source ~/.config/nvim/init.vim<cr>
+noremap <leader>pi :w<cr> :source ~/.config/nvim/init.vim<cr>:PluginInstall<cr>
 " Toggle tree navigator (NERDTree plugin)
-noremap <Leader>k :NERDTreeToggle<cr>
-" Jump to definition (YCM plugin)
-nnoremap <leader>jd :YcmCompleter GoTo<cr>
-" Switch between the last two files
-nnoremap <leader><leader> <c-^>
-" Navigates through list of errors
-nnoremap<leader>ll :ll<cr>
-" Toggle search highlight
-command! C nohlsearch
+ noremap <Leader>k :NERDTreeToggle<cr>
 " Toggle tagbar
-nmap <leader>t :TagbarToggle<cr>
-" Resize panes
-nmap + <C-W>>
-nmap - <C-W><
+ nmap <leader>t :TagbarToggle<cr>
 " Switch between panes
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-" Avoid Esc key
+" Avoid Esc key jj
 imap jj <Esc>
+" Avoid Esc key ll
+imap lll <Esc> <Right>
 " Add shortcut to end of line
 inoremap <C-e> <Esc>A
 inoremap <C-a> <Esc>I
-" Rubocop autocorrect
-let g:vimrubocop_keymap = 0
-nmap <Leader>ra :RuboCop -a<cr>
-" Exit terminal mode
-tnoremap <Leader>e <C-\><C-n>
-tnoremap <A-J> <C-\><C-n><C-W><C-J>
-tnoremap <A-K> <C-\><C-n><C-W><C-K>
-tnoremap <A-L> <C-\><C-n><C-W><C-L>
-tnoremap <A-H> <C-\><C-n><C-W><C-H>
-"nmap k gk
-"nmap j gj
-
-" ==================================================
-" UltiSnips configuration
-" ==================================================
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetsDir = '~/.config/nvim/ultisnips'
-let g:UltiSnipsSnippetDirectories = ['ultisnips']
-let g:UltiSnipsEditSplit = 'vertical'
-
-" ==================================================
-" VimAutoformat configuration
-" ==================================================
-" C/C++
-let g:formatdef_clangfile = "'clang-format -style=file'"
-let g:formatdef_llvmstyle = "'clang-format -style=llvm'"
-let g:formatters_cpp = ['clangfile', 'llvmstyle']
-autocmd FileType c,cpp autocmd BufWritePre <buffer> :Autoformat
 
 " ==================================================
 " Correct common stupid mistakes
@@ -337,130 +358,3 @@ command! -bang WA wa<bang>
 command! -bang Q q<bang>
 command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
-"inoremap  <Up>     <NOP>
-"inoremap  <Down>   <NOP>
-"inoremap  <Left>   <NOP>
-"inoremap  <Right>  <NOP>
-"noremap   <Up>     <NOP>
-"noremap   <Down>   <NOP>
-"noremap   <Left>   <NOP>
-"noremap   <Right>  <NOP>
-
-" ==================================================
-" FZF configuration
-" ==================================================
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-
-nnoremap <C-p> :FZF<cr>
-" ==================================================
-" YCM configuration
-" ==================================================
-let ycm_autoclose_preview_window_after_completion = 1
-let ycm_min_num_of_chars_for_completion = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_enable_diagnostic_highlighting = 1
-let g:ycm_always_populate_location_list = 1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_error_symbol = '✗'
-let g:ycm_warning_symbol = '!'
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'qf' : 1,
-      \ 'notes' : 1,
-      \ 'markdown' : 1,
-      \ 'unite' : 1,
-      \ 'text' : 1,
-      \ 'vimwiki' : 1,
-      \ 'pandoc' : 1,
-      \ 'infolog' : 1,
-      \ 'mail' : 1
-      \}
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-j>']
-let g:ycm_key_list_previous_completion = ['<C-k>']
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-" ==================================================
-" Vim smooth scroll configuration
-" ==================================================
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 4, 2)<cr>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 4, 2)<cr>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll * 2, 4, 4)<cr>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 4, 4)<cr>
-
-" ==================================================
-" CMake project configuration
-" ==================================================
-let g:cmakeproj_default_generator = 'make'
-
-" ==================================================
-" Neomake configuration
-" ==================================================
-" Ruby
-let g:neomake_ruby_enabled_maker = ["rubocop", "mri"]
-let g:neomake_javascript_enabled_makers = ['eslint']
-autocmd! BufWritePost * Neomake
-autocmd BufWrite *.js Neomake
-autocmd InsertLeave *.js Neomake
-
-" ==================================================
-" Vim-test configuration
-" ==================================================
-nmap <silent> <leader>s :TestNearest<CR>
-nmap <silent> <leader>r :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
-
-function! VerticalSplitStrategy(cmd)
-  vertical botright new | call termopen(a:cmd) | startinsert
-endfunction
-let g:test#custom_strategies = {'terminal_vsplit': function('VerticalSplitStrategy')}
-let g:test#strategy = 'terminal_vsplit'
-
-" ==================================================
-" DoxyenToolkit configuration
-" ==================================================
-let g:DoxygenToolkit_commentType = 'C++'
-let g:DoxygenToolkit_briefTag_pre = '\brief '
-let g:DoxygenToolkit_paramTag_pre = '\param '
-let g:DoxygenToolkit_returnTag = '\return '
-let g:DoxygenToolkit_fileTag = '\file '
-let g:DoxygenToolkit_authorTag = '\author '
-let g:DoxygenToolkit_blockTag = '\name '
-let g:DoxygenToolkit_versionTag = '\version '
-let g:DoxygenToolkit_classTag = '\class '
-let g:DoxygenToolkit_dateTag = '\date '
-
-" ==================================================
-" Vim markdown configuration
-" ==================================================
-let g:vim_markdown_math=1
-let g:vim_markdown_frontmatter=1
-
-" ==================================================
-" Vim markdown preview configuration
-" ==================================================
-let vim_markdown_preview_github=1
-let vim_markdown_preview_hotkey='<C-P>'
-let vim_markdown_preview_toggle=1
-
-
-" ==================================================
-" Vim markdown preview configuration
-" ==================================================
-let NERDTreeShowHidden=0
-
-
-" ==================================================
-" Vim markdown preview configuration
-" ==================================================
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-
- 
