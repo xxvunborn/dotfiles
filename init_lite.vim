@@ -51,9 +51,6 @@ Plugin 'terryma/vim-multiple-cursors'
 " Indentation mark for scope
 Plugin 'Yggdroot/indentLine'
 
-" Lint engine
-"Plugin 'w0rp/ale'
-
 " Icons
 Plugin 'ryanoasis/vim-devicons'
 
@@ -62,6 +59,12 @@ Plugin 'wakatime/vim-wakatime'
 
 " Fugitive
 Plugin 'tpope/vim-fugitive'
+
+ "Vim javascript
+"Plugin 'pangloss/vim-javascript'
+
+" Graphql
+Plugin 'jparise/vim-graphql'
 
 " Gitgutter 
 Plugin 'airblade/vim-gitgutter'
@@ -72,13 +75,21 @@ Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " echodoc declarative function
 Plugin 'Shougo/echodoc.vim'
 " Conquer of completion (coc vim)
-Plugin 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plugin 'neoclide/coc.nvim', {'do': 'yarn install' }
+
+Plugin 'prettier/vim-prettier', { 'do': 'yarn install' }
+let g:prettier#config#config_precedence = 'prefer-file'
 
 " --------------------------------------------------
 " GO
 " --------------------------------------------------
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
 " Vim go plugins
- Plugin 'fatih/vim-go'
+"Plugin 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+"set autowrite
+ "Plugin 'sebdah/vim-delve'
+  "let g:delve_backend = "native"
 
 " --------------------------------------------------
 " TYPESCRIPT
@@ -118,7 +129,8 @@ Plugin 'uarun/vim-protobuf'
 
 " Easy Commenter
 Plugin 'scrooloose/nerdcommenter'
-"
+" JSDOC
+Plugin 'heavenshell/vim-jsdoc'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -133,7 +145,6 @@ filetype plugin indent on    " required
 " --------------------------------------------------
 " if hidden is not set, TextEdit might fail.
 set hidden
-set cmdheight=2
 
 " Some server have issues with backup files, see #649
 set nobackup
@@ -298,16 +309,16 @@ nnoremap <C-p> :FZF<cr>
 " A.l.e Configuration
 " --------------------------------------------------
 "\   'ruby': ['rubocop'],
-let g:ale_fixers = {
-\   'javascript': ['eslint', 'prettier'],
-\   'typescript': ['tslint', 'prettier'],
-\   'css': ['prettier'],
-\}
-let g:ale_enabled = 1
-let g:ale_fix_on_save = 1
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
+"let g:ale_fixers = {
+"\   'javascript': ['eslint', 'prettier'],
+"\   'typescript': ['tslint', 'prettier'],
+"\   'css': ['prettier'],
+"\}
+"let g:ale_enabled = 1
+"let g:ale_fix_on_save = 1
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_sign_error = '✖'
+"let g:ale_sign_warning = '⚠'
 
 " ==================================================
 " " Leader mappings & Key mappings
