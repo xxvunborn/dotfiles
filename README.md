@@ -6,70 +6,44 @@ Tested in: MacOs Mojave
 This repository will install the next packages and configuration.
 
 
-```
-###############################################################
-####### 									  PHASE 1 									  #######
-###############################################################
+## PHASE 1
 
-# Install the neccesary packages for the setup.
-# homebrew
-# nvim
-# iterm2
-# ssh / ohmyssh
-# node / yarn
-# cmake / gcc / luarocks
+- Install the neccesary packages for the setup.
+- homebrew
+- nvim
+- iterm2
+- ssh / ohmyssh
+- node / yarn
+- cmake / gcc / luarocks
 
-###############################################################
+## PHASE 2
 
+- Install and configure vim-plugins (Vundle)
+- TODO: Change for vim-plug
+- Vundle 
+- PluginInstall
 
-###############################################################
-####### 									  PHASE 2 									  #######
-###############################################################
+## PHASE 3
 
-# Install and configure vim-plugins (Vundle)
-# TODO: Change for vim-plug
-# Vundle 
-# PluginInstall
-#
-###############################################################
+- Copy configurations files for previous installation
+- init.vim
+- .zshrc
+- .tmux.conf
 
+## PHASE 4
 
-###############################################################
-####### 									  PHASE 3 									  #######
-###############################################################
+- Set the configuration for Conquer of Completion (coc-vim)
+- Install plugins:
+- 	- coc-json
+- 	- coc-python
+- 	- coc-tsserver
+- Copy coc-settings
 
-# Copy configurations files for previous installation
-# init.vim
-# .zshrc
-# .tmux.conf
+## PHASE 5
 
-###############################################################
-
-
-###############################################################
-####### 									  PHASE 4 									  #######
-###############################################################
-
-# Set the configuration for Conquer of Completion (coc-vim)
-# Install plugins:
-# 	- coc-json
-# 	- coc-python
-# 	- coc-tsserver
-# Copy coc-settings
-
-###############################################################
-
-
-###############################################################
-####### 									  PHASE 5 									  #######
-###############################################################
-
-# Install other packages
-# go
-# gopls (For coc linter)
-
-###############################################################
-```
+- Install other packages
+- go
+- gopls (For coc linter)
 
 For install all:
 
