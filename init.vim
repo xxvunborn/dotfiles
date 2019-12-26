@@ -88,8 +88,7 @@ autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeIm
 " Vim go plugins
 "Plugin 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 "set autowrite
- "Plugin 'sebdah/vim-delve'
-  "let g:delve_backend = "native"
+ Plugin 'sebdah/vim-delve'
 
 " --------------------------------------------------
 " TYPESCRIPT
@@ -305,21 +304,6 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 nnoremap <C-p> :FZF<cr>
 
-" --------------------------------------------------
-" A.l.e Configuration
-" --------------------------------------------------
-"\   'ruby': ['rubocop'],
-"let g:ale_fixers = {
-"\   'javascript': ['eslint', 'prettier'],
-"\   'typescript': ['tslint', 'prettier'],
-"\   'css': ['prettier'],
-"\}
-"let g:ale_enabled = 1
-"let g:ale_fix_on_save = 1
-"let g:ale_echo_msg_error_str = 'E'
-"let g:ale_sign_error = '✖'
-"let g:ale_sign_warning = '⚠'
-
 " ==================================================
 " " Leader mappings & Key mappings
 " " ==================================================
@@ -345,6 +329,8 @@ imap lll <Esc> <Right>
 " Add shortcut to end of line
 inoremap <C-e> <Esc>A
 inoremap <C-a> <Esc>I
+nmap <silent> <leader>tp :DlvToggleBreakpoint<cr>
+nmap <silent> <leader>dd :DlvDebug<cr>
 
 " ==================================================
 " Correct common stupid mistakes
