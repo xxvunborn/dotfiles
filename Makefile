@@ -78,7 +78,7 @@ ivundleplugins:
 	@echo [Install]: Vundle: PluginInstall
 	@nvim --headless +PluginInstall +qall
 	
-phase 3: ivundle ivundleplugins
+phase2: ivundle ivundleplugins
 
 ###############################################################
 ####### 									  PHASE 3 									  #######
@@ -93,7 +93,7 @@ phase 3: ivundle ivundleplugins
 
 czshrc: 
 	@echo [Copy]: .zshrc
-	@cp -a ./.zshrc  ~/
+	@cp -a ./.zshrc  ~/.zshrc
 
 cinit:
 	@echo [Copy]: Init.vim
@@ -153,4 +153,4 @@ igopls:
 phase5: igo igopls
 
 ###############################################################
-install: phase1 phase2 phase3 phase4
+install: phase2 phase3 phase4

@@ -2,8 +2,8 @@ export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/acidlabs/.oh-my-zsh
-export POWERLINE=/Users/acidlabs/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+export ZSH=/Users/chrismunoz/.oh-my-zsh
+export POWERLINE=/Users/chrismunoz/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -23,8 +23,8 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # MAIN PATH
-export HOME="/Users/acidlabs"
-export PATH="/Users/acidlabs/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export HOME="/Users/chrismunoz"
+export PATH="/Users/chrismunoz/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # LENGUAGE PATH
 export LANG="en_US.UTF-8"
@@ -36,8 +36,8 @@ export GOPATH=$HOME/ws/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin 
 
 # RUBY VERSION MANAGER PATH
-export PATH="$HOME/.rbenv/shims:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/shims:$PATH"
+#eval "$(rbenv init -)"
 
 # POSTGRES PATH
 export PATH=$PATH:/Library/PostgreSQL/9.0/bin/ gem install pg
@@ -48,16 +48,16 @@ export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
 # PYTHON VERSION MANAGER PATH
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
 
 # NVM VERSION MANAGER PATH
-export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh"
+#export NVM_DIR="$HOME/.nvm"
+  #. "/usr/local/opt/nvm/nvm.sh"
 
 # FLUTTER PATH
-export PATH=/Users/acidlabs/ws/Github.com/flutter/bin:$PATH
+export PATH=/Users/chrismunoz/ws/Github.com/flutter/bin:$PATH
 
 # Openssl PATH
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
