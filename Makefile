@@ -1,5 +1,5 @@
 ###############################################################
-####### 									  PHASE 1 									  #######
+# PHASE 1
 ###############################################################
 
 # Install the neccesary packages for the setup.
@@ -60,7 +60,7 @@ iluarocks:
 phase1: ihomebrew invim iiterm2 itmux iohmyssh inode iyarn icmake igcc iluarocks
 
 ###############################################################
-####### 									  PHASE 2 									  #######
+# PHASE 2
 ###############################################################
 
 # Install and configure vim-plugins (Vundle)
@@ -81,7 +81,7 @@ ivundleplugins:
 phase2: ivundle ivundleplugins
 
 ###############################################################
-####### 									  PHASE 3 									  #######
+# PHASE 3
 ###############################################################
 
 # Copy configurations files for previous installation
@@ -108,7 +108,7 @@ ctmuxconf:
 phase3: czshrc cinit ctmuxconf ivundleplugins
 
 ###############################################################
-####### 									  PHASE 4 									  #######
+# PHASE 4
 ###############################################################
 
 # Set the configuration for Conquer of Completion (coc-vim)
@@ -133,12 +133,15 @@ ccocconfig:
 phase4: cocplugins ccocconfig
 
 ###############################################################
-####### 									  PHASE 5 									  #######
+# PHASE 5
 ###############################################################
 
 # Install other packages
 # go
 # gopls (For coc linter)
+# docker
+# kubectl
+# minicube
 
 ###############################################################
 
@@ -150,7 +153,19 @@ igopls:
 	@echo [Install]: Gopls
 	@go get golang.org/x/tools/gopls
 
-phase5: igo igopls
+idocker:
+	@echo [Install]: Docker
+	@brew cask install docker
 
+ikubectl:
+	@echo [Install]: Kubernetes 
+	@brew install kubectl
+
+iminikube:
+	@echo [Install]: Kubernetes 
+	@brew cask install minikube
+
+phase5: igo igopls idocker ikubectl iminikube
 ###############################################################
-install: phase2 phase3 phase4
+
+install: phase2 phase3 phase4 phase5
