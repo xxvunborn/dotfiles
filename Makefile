@@ -136,13 +136,9 @@ phase4: cocplugins ccocconfig
 # PHASE 5
 ###############################################################
 
-# Install other packages
+# Install go packages
 # go
 # gopls (For coc linter)
-# docker
-# kubectl
-# minicube
-
 ###############################################################
 
 igo:
@@ -153,6 +149,20 @@ igopls:
 	@echo [Install]: Gopls
 	@go get golang.org/x/tools/gopls
 
+
+phase5: igo igopls idocker ikubectl iminikube
+
+###############################################################
+# PHASE 5
+###############################################################
+
+# Install containers packages
+# docker
+# kubectl
+# minicube
+# k9s
+# skaffold
+###############################################################
 idocker:
 	@echo [Install]: Docker
 	@brew cask install docker
@@ -163,9 +173,30 @@ ikubectl:
 
 iminikube:
 	@echo [Install]: Kubernetes 
-	@brew cask install minikube
+	@brew install minikube
 
-phase5: igo igopls idocker ikubectl iminikube
+
+ik9s:
+	@echo [Install]: k9s 
+	@brew install derailed/k9s/k9s
+
+iskaffold:
+	@echo [Install]: skaffold 
+	@brew install skaffold
+
+phase6: idocker ikubectl iminikube ik9s iskaffold
+
+###############################################################
+# PHASE m
 ###############################################################
 
-install: phase2 phase3 phase4 phase5
+# Install misselanious 
+# bloomrpc
+###############################################################
+ibloomrpc:
+	@echo [Install]: bloomrpc
+	@brew cask install bloomrpc
+
+phasem ibloomrpc
+###############################################################
+install: phase2 phase3 phase4 phase5 phase6 phasem
