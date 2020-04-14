@@ -11,6 +11,7 @@ export POWERLINE=/Users/chrismunoz/Library/Python/2.7/lib/python/site-packages/p
 #ZSH_THEME=agnoster
 #ZSH_THEME="powerlevel9k/powerlevel9k"
 ZSH_THEME="robbyrussell"
+set termguicolors
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -29,6 +30,9 @@ export PATH="/Users/chrismunoz/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 # LENGUAGE PATH
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+
+# FZF dot files find
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore node_modules -g ""'
 
 # GOLANG PATH
 export GOROOT=/usr/local/opt/go/libexec
@@ -55,6 +59,7 @@ export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 # NVM VERSION MANAGER PATH
 #export NVM_DIR="$HOME/.nvm"
   #. "/usr/local/opt/nvm/nvm.sh"
+export NVM_DIR="$HOME/.nvm"
 
 # FLUTTER PATH
 export PATH=/Users/chrismunoz/ws/Github.com/flutter/bin:$PATH
@@ -92,6 +97,8 @@ alias rna='react-native run-android'
 alias rni='react-native run-ios'
 
 #TMUX COMMANDS
+#export TERM=xterm-256color
+alias tmux='TERM=screen-256color tmux'
 alias tlist='tmux list-sessions'
 alias tat='tmux a -t'
 
