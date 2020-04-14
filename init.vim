@@ -1,118 +1,364 @@
-###########################
-#  Configuration
-###########################
+""""""""""""""""""""""""
+"""""Chris I. Muñoz"""""
+""chris.mzpl@gmail.com""
+""""""""""""""""""""""""
+scriptencoding utf8
+set encoding=utf-8
 
-# use 256 term for pretty colors
-#set-option -g default-terminal 'tmux-256color'
-#set -g default-terminal "xterm-256color"
-set -g default-terminal "screen-256color"
-set -ga terminal-overrides ",*256col*:Tc"
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+"let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" --------------------------------------------------
+" UI and utilities
+" --------------------------------------------------
+" Plugin for change things surround text
+Plugin 'tpope/vim-surround'
+
+" Better scrolling
+Plugin 'terryma/vim-smooth-scroll'
+
+" Color schemes:
+"Plugin 'romainl/flattened'
+"Plugin 'junegunn/seoul256.vim'
+"Plugin 'drewtempelmeyer/palenight.vim'
+"Plugin 'arcticicestudio/nord-vim'
+"Plugin 'morhetz/gruvbox'
+Plugin 'joshdick/onedark.vim'
+
+ "A tree explorer
+Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'  }
+
+" better statusline
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes',
+ "Plugin 'itchyny/lightline.vim'
+
+" Files fuzzy finder
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plugin 'junegunn/fzf.vim'
+
+" multiple cursors like a sublime text
+Plugin 'terryma/vim-multiple-cursors'
+
+" Indentation mark for scope
+Plugin 'Yggdroot/indentLine'
+
+" Icons
+Plugin 'ryanoasis/vim-devicons'
+
+" Wakatime 
+Plugin 'wakatime/vim-wakatime'
+
+" Fugitive
+Plugin 'tpope/vim-fugitive'
+
+ "Vim javascript
+"Plugin 'pangloss/vim-javascript'
+
+"Vimspector
+Plugin 'puremourning/vimspector'
+
+" Graphql
+Plugin 'jparise/vim-graphql'
+
+" Gitgutter 
+Plugin 'airblade/vim-gitgutter'
+
+" vim-markdown
+Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+" echodoc declarative function
+Plugin 'Shougo/echodoc.vim'
+" Conquer of completion (coc vim)
+Plugin 'neoclide/coc.nvim', {'do': 'yarn install' }
+
+Plugin 'prettier/vim-prettier', { 'do': 'yarn install' }
+let g:prettier#config#config_precedence = 'prefer-file'
+
+" --------------------------------------------------
+" GO
+" --------------------------------------------------
+"autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" Vim go plugins
+"Plugin 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+"set autowrite
+ Plugin 'sebdah/vim-delve'
+
+" --------------------------------------------------
+" TYPESCRIPT
+" --------------------------------------------------
+" Vim go plugins
+ Plugin 'leafgarland/typescript-vim'
+ Plugin 'Shougo/vimproc.vim'  "Then cd ~/.vim/bundle/vimproc.vim && make
+
+" --------------------------------------------------
+" Development tools and facilities
+" --------------------------------------------------
+
+" Complete pairs 
+Plugin 'jiangmiao/auto-pairs'
+" Complete lines
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plugin 'zchee/deoplete-go', { 'do': 'make'}
+  Plugin 'fishbullet/deoplete-ruby'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+endif
+
+" Complete with Tab
+Plugin 'ervandew/supertab'
+
+" Vim ruby
+Plugin 'vim-ruby/vim-ruby'
+
+" Protobuf
+Plugin 'uarun/vim-protobuf'
+
+" Strip white spaces
+"Plugin 'ntpeters/vim-better-whitespace'
+
+" Easy Commenter
+Plugin 'scrooloose/nerdcommenter'
+" JSDOC
+Plugin 'heavenshell/vim-jsdoc'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" ==================================================
+"   configuration
+" ==================================================
+"
+" --------------------------------------------------
+" General configuration
+" --------------------------------------------------
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some server have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" " --------------------------------------------------
+" Vimspector configuration
+" --------------------------------------------------
+
+let g:vimspector_enable_mappings = 'HUMAN'
 
 
-# increase scroll-back history
-set -g history-limit 50000
+" --------------------------------------------------
+" Vim-smooth-scroll basic configuration
+" --------------------------------------------------
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR><Paste>
 
-# use vim key bindings
-setw -g mode-keys vi
-
-# decrease command delay (increases vim responsiveness)
-set -sg escape-time 1
-
-# increase repeat time for repeatable commands
-set -g repeat-time 1000
-
-# highlight window when it has new activity
-setw -g monitor-activity on
-set -g visual-activity on
-
-# re-number windows when one is closed
-set -g renumber-windows on
-
-# enable pbcopy and pbpaste
-# https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard/blob/master/README.md
-#set-option -g default-command "reattach-to-user-namespace -l zsh"
-set-option -g default-shell /bin/zsh
-# Don't rename the window's name
-set-option -g allow-rename off
-
-set-environment -gu RBENV_VERSION
-
-# Set options for mouse in tmux
-set -g mouse off
-
-# make scrolling with wheels work
-bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
-bind -n WheelDownPane select-pane -t= \; send-keys -M
-# Set copy with select mouse and then press y like vim
-#bind-key -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel "pbcopy"
-bind-key -T copy-mode M-w send-keys -X copy-pipe 'reattach-to-user-namespace pbcopy'
-
-set-option -g update-environment "DISPLAY SSH_ASKPASS SSH_CLIENT SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION SSH_TTY WINDOWID XAUTHORITY XDG_SESSION_ID"
-###########################
-#  Key Bindings
-###########################
-
-# tmux prefix
-unbind C-b
-set -g prefix C-a
-bind a send-prefix
-
-# copy with 'enter' or 'y' and send to mac os clipboard: http://goo.gl/2Bfn8
-#unbind -T copy-mode-vi Enter
-bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
-bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+" --------------------------------------------------
+" color scheme configuration
+" --------------------------------------------------
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+"syntax enable
+"let g:seoul256_background = 235
+"colo seoul256
+"set background=dark
+"colorscheme palenight
+"color flattened_dark
+"colorscheme gruvbox
+"let g:gruvbox_contrast_dark = 'hard'
+"colorscheme nord
+"let g:nord_italic = 1
+"let g:nord_underline = 1
+"let g:nord_italic_comments = 1
+"let g:nord_uniform_status_lines = 1
+"let g:nord_cursor_line_number_background = 1
+"
+syntax on
+colorscheme onedark
 
 
-bind -r H resize-pane -L 5
-bind -r J resize-pane -D 5
-bind -r K resize-pane -U 5
-bind -r L resize-pane -R 5
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab shiftround
+set number relativenumber
+set noswapfile nobackup nowritebackup autowrite
+set showmatch showcmd
+set splitright
+set cursorline
+set nofoldenable
 
-# Enable screen-like C-a C-a moving to last window
-bind-key C-a last-window
+highlight specialkey ctermfg=8
+set clipboard=unnamed
+"set pastetoggle=<f2>
+set completeopt=longest,menu
+set scrolloff=10 sidescrolloff=5
+set complete=.,w,b,u,t
+set wildmenu wildmode=longest,list:longest
+set gdefault incsearch smartcase
+" set rule on 100
+"set colorcolumn=100
+ "custo set
+set guifont=<font_name>:h<font_size>
+set guifont=droid\ sans\ mono\ for\ powerline\ plus\ nerd\ file\ types:h11
+au bufread,bufnewfile *.html.mustache set filetype=html
+" load doxygen syntax aumatically
+let g:load_doxygen_syntax=1
+" make it more obvious which paren i'm on
+hi matchparen cterm=none ctermbg=3 ctermfg=0
+" strip white space for the following file types
+"autocmd filetype c,cpp,ruby,javascript,java,php,python LINE WITH ERROR<<<<<
+"autocmd bufwritepre <buffer> stripwhitespace
+" nerdtree no list chars
+autocmd filetype nerdtree setlocal nolist
 
-# force a reload of the config kile
-unbind r
-bind r source-file ~/.tmux.conf \; display "Reloaded!"
+" --------------------------------------------------
+" Vim-airline configuration
+" --------------------------------------------------
+set background=dark " Set dark theme in solarized
+let g:airline_powerline_fonts = 1
+"let g:airline_theme = 'gruvbox'
+let g:airline_theme='onedark'
+let g:airline#extensions#tabline#enabled = 1
 
-###########################
-# Status Bar
-###########################
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
 
-# set refresh interval for status bar
-set -g status-interval 30
+  " unicode symbols
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = ''
+  let g:airline_symbols.crypt = '🔒'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.paste = 'Þ'
+  let g:airline_symbols.paste = '∥'
+  let g:airline_symbols.notexists = '∄'
+  let g:airline_symbols.whitespace = 'Ξ'
 
-# center the status bar
-set -g status-justify left
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ''
 
-# show session, window, pane in left status bar
-set -g status-left-length 40
-set -g status-left '#[fg=green]#S#[fg=yellow] #I:#P#[default]'
+  "old vim-powerline symbols
+  "let g:airline_left_sep = ''
+  "let g:airline_left_alt_sep = ''
+  "let g:airline_right_sep = ''
+  "let g:airline_right_alt_sep = '⮃'
+  "let g:airline_symbols.branch = '⭠'
+  "let g:airline_symbols.readonly = '⭤'
+  "let g:airline_symbols.linenr = '⭡'
 
-# show hostname, date, time, and battery in right status bar
-set-option -g status-right '#[fg=green]#H#[default] %m/%d/%y %I:%M\
- #[fg=red]#(battery discharging)#[default]#(battery charging)'
+" --------------------------------------------------
+" Deoplete configuration
+" --------------------------------------------------
+"let g:deoplete#enable_at_startup = 1
+" --------------------------------------------------
+" Deoplete configuration
+" --------------------------------------------------
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-########################### Colors ########################## color status bar set -g status-bg colour235
-set -g status-fg white
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
-# highlight current window
-set-window-option -g window-status-current-fg black
-set-window-option -g window-status-current-bg green
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-# set color of active pane
-set -g pane-border-fg colour235
-set -g pane-border-bg black
-set -g pane-active-border-fg green
-set -g pane-active-border-bg black
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-bind c new-window -c "#{pane_current_path}"
-bind | split-window -h -c "#{pane_current_path}"
-bind - split-window -c "#{pane_current_path}"
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-# Smart pane switching with awareness of vim splits
-is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
-bind -n C-h if-shell "$is_vim" "send-keys C-h" "select-pane -L"
-bind -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
-bind -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
-bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
+" --------------------------------------------------
+" FZF configuration
+" --------------------------------------------------
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+nnoremap <C-p> :FZF<cr>
+
+" ==================================================
+" " Leader mappings & Key mappings
+" " ==================================================
+"Set Leadermap
+let mapleader = "\<Space>"
+" Open Neo Vim config
+ nmap <leader>vi :tabe ~/.config/nvim/init.vim<cr>
+" Source .nvimrc and install plugins
+noremap <leader>pi :w<cr> :source ~/.config/nvim/init.vim<cr>:PluginInstall<cr>
+" Toggle tree navigator (NERDTree plugin)
+ noremap <Leader>k :NERDTreeToggle<cr>
+" Toggle tagbar
+ nmap <leader>t :TagbarToggle<cr>
+" Switch between panes
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+" Avoid Esc key jj
+imap jj <Esc>
+" Avoid Esc key ll
+imap wl <Esc> <Right> <Insert>
+" Add shortcut to end of line
+inoremap <C-e> <Esc>A
+inoremap <C-a> <Esc>I
+nmap <silent> <leader>tp :DlvToggleBreakpoint<cr>
+nmap <silent> <leader>dd :DlvDebug<cr>
+
+" ==================================================
+" Correct common stupid mistakes
+" ==================================================
+command! -bang -nargs=* -complete=file E e<bang> <args>
+command! -bang -nargs=* -complete=file W w<bang> <args>
+command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+command! -bang Wa wa<bang>
+command! -bang WA wa<bang>
+command! -bang Q q<bang>
+command! -bang QA qa<bang>
+command! -bang Qa qa<bang>
