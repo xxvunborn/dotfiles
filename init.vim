@@ -10,6 +10,9 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+" set spell
+"set spelllang=en_us
+"set spell
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -60,8 +63,8 @@ Plugin 'wakatime/vim-wakatime'
 " Fugitive
 Plugin 'tpope/vim-fugitive'
 
- "Vim javascript
-"Plugin 'pangloss/vim-javascript'
+" Godot
+Plugin 'calviken/vim-gdscript3'
 
 "Vimspector
 Plugin 'puremourning/vimspector'
@@ -266,15 +269,6 @@ if !exists('g:airline_symbols')
   let g:airline_symbols.branch = ''
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
-
-  "old vim-powerline symbols
-  "let g:airline_left_sep = ''
-  "let g:airline_left_alt_sep = ''
-  "let g:airline_right_sep = ''
-  "let g:airline_right_alt_sep = '⮃'
-  "let g:airline_symbols.branch = '⭠'
-  "let g:airline_symbols.readonly = '⭤'
-  "let g:airline_symbols.linenr = '⭡'
 
 " --------------------------------------------------
 " Deoplete configuration
