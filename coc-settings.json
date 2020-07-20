@@ -2,6 +2,8 @@
   "suggest.echodocSupport": true,
   "diagnostic.checkCurrentLine": true,
   "suggest.noselect": false,
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
+  "prettier.eslintIntegration": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
