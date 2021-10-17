@@ -70,15 +70,21 @@ phase1: ihomebrew invim iiterm2 itmux iohmyssh inode iyarn icmake igcc iluarocks
 #
 ###############################################################
 
-ivundle:
-	@echo [Install]: Vundle
-	@git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+#ivundle:
+#	@echo [Install]: Vundle
+#	@git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+cinit:
+	@echo [Copy]: Init.vim
+	@mkdir -p ~/.config/
+	@mkdir -p ~/.config/nvim/
+	@cp ./init.vim  ~/.config/nvim/init.vim
 
 ivundleplugins:
 	@echo [Install]: Vundle: PluginInstall
 	@nvim --headless +PluginInstall +qall
 	
-phase2: ivundle ivundleplugins
+phase2: cinit ivundleplugins
 
 ###############################################################
 # PHASE 3
@@ -94,12 +100,6 @@ phase2: ivundle ivundleplugins
 czshrc: 
 	@echo [Copy]: .zshrc
 	@cp -a ./.zshrc  ~/.zshrc
-
-cinit:
-	@echo [Copy]: Init.vim
-	@mkdir -p ~/.config/
-	@mkdir -p ~/.config/nvim/
-	@cp ./init.vim  ~/.config/nvim/init.vim
 
 ctmuxconf:
 	@echo [Copy]: .tmux.conf
@@ -150,7 +150,7 @@ igopls:
 	@go get golang.org/x/tools/gopls
 
 
-phase5: igo igopls idocker ikubectl iminikube
+phase5: igo igopls
 
 ###############################################################
 # PHASE 5
@@ -178,13 +178,13 @@ iminikube:
 
 ik9s:
 	@echo [Install]: k9s 
-	@brew install derailed/k9s/k9s
+	@brew install k9s
 
 iskaffold:
 	@echo [Install]: skaffold 
 	@brew install skaffold
 
-phase6: idocker ikubectl iminikube ik9s iskaffold
+phase6:  ikubectl iminikube ik9s iskaffold
 
 ###############################################################
 # PHASE m
@@ -197,6 +197,6 @@ ibloomrpc:
 	@echo [Install]: bloomrpc
 	@brew cask install bloomrpc
 
-phasem ibloomrpc
+phasem: ibloomrpc
 ###############################################################
 install: phase2 phase3 phase4 phase5 phase6 phasem

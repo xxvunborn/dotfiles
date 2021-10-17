@@ -1,0 +1,32 @@
+{
+  "suggest.echodocSupport": true,
+  "diagnostic.checkCurrentLine": true,
+  "suggest.noselect": false,
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
+  "prettier.eslintIntegration": true,
+  "coc.preferences.rootPatterns": [".gitmodules", ".vim"],
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "trace.server": "verbose",
+      "filetypes": ["go"]
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        }
+      }
+    }
+  }
+}
