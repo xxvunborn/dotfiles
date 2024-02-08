@@ -25,7 +25,9 @@ utils.opt('o', 'clipboard','unnamed,unnamedplus')
 vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'
 
 -- format on save
-vim.cmd [[autocmd BufWritePre *.go  lua vim.lsp.buf.formatting()]]
-vim.cmd [[autocmd BufWritePre *.js  lua vim.lsp.buf.formatting()]]
-vim.cmd [[autocmd BufWritePre *.ts  lua vim.lsp.buf.formatting()]]
+vim.cmd [[autocmd BufWritePre *.go  lua vim.lsp.buf.format{async = true}]]
+vim.cmd [[autocmd BufWritePre *.js  lua vim.lsp.buf.format{async = true}]]
+vim.cmd [[autocmd BufWritePre *.ts  lua vim.lsp.buf.format{async = true}]]
+vim.cmd [[autocmd BufWritePre *.tsx  lua vim.lsp.buf.format{async = true}]]
 
+vim.cmd 'set timeoutlen=1000 ttimeoutlen=0'

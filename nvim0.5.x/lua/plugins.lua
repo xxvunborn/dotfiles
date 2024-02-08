@@ -62,6 +62,9 @@ return require('packer').startup(function()
     -- Formater
     use 'sbdchd/neoformat' 
 
+    -- tmux-navigator
+    use 'christoomey/vim-tmux-navigator'
+
     -- Close html tags
     use {
         "windwp/nvim-ts-autotag",
@@ -69,4 +72,6 @@ return require('packer').startup(function()
             require("nvim-ts-autotag").setup({enable = true})
         end
     }
+    -- vimspector
+    use 'puremourning/vimspector'
 end)
